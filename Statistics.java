@@ -17,12 +17,9 @@ public class Statistics {
         if (orders.isEmpty()) {
             return 0;
         }
-
         double totalCost = getTotal();
         return totalCost / orders.size();
     }
-
-
-    }
+}
 
 

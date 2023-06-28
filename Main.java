@@ -6,16 +6,21 @@ public class Main {
     private static List<CoffeeOrder> orders = new ArrayList<CoffeeOrder>();
     private static String logFile = "OrderLog.txt";
 
+    //file path for ingredient list
     private static String inventoryFile = "src\\Inventory.txt";
 
     public static void main(String[] args) {
         System.out.println("Welcome to Java Coffee Co.!");
+
+        //reads inventory file
         inventory = readInventory(inventoryFile);
 
         try (Scanner input = new Scanner(System.in)) {
             boolean exit = false;
 
             while (!exit) {
+
+                //main menu for users
                 System.out.println("\nMAIN MENU");
                 System.out.println("1 - New Order");
                 System.out.println("2 - Reload Inventory");
@@ -26,6 +31,8 @@ public class Main {
 
                 int select = 0;
                 while (select < 1 || select > 6) {
+
+                //user must enter corresponding number or system returns error
                     if (!input.hasNextInt()) {
                         System.out.println("Error. Invalid Number.");
                         input.nextLine();
@@ -40,17 +47,22 @@ public class Main {
                 input.nextLine();
 
                 switch (select) {
+
+                    //make a new order
                     case 1:
-                        ;
                         CoffeeOrder order = buildOrder();
                         orders.add(order);
                         System.out.println(order.printOrder());
                         break;
+
+                    //see current inventory
                     case 2:
                         System.out.println("\nCurrent Inventory:");
                         System.out.println(inventory);
                         printInventory();
                         break;
+
+                    //add more ingredients to inventory
                     case 3:
                         System.out.println("\nEnter ingredient:");
                         String ingredient = input.nextLine();
@@ -62,14 +74,20 @@ public class Main {
                         writeInventory(inventoryFile);
                         System.out.println("\nInventory updated.");
                         break;
+
+                    ///update order log
                     case 4:
                         writeOrderLog(logFile);
                         System.out.println("\nOrder log updated.");
                         break;
+
+                    //view stats of orders such as average and total
                     case 5:
                         System.out.println("\nStatistics:");
                         printStatistics();
                         break;
+
+                     //exit system
                     case 6:
                         System.out.println("Thank you for visiting Java Coffee Co.");
                         exit = true;
@@ -83,7 +101,6 @@ public class Main {
             System.out.println("Error: " + e.getMessage());
         }
 
-        //if (!orders.size() > 0) {
         if (!orders.isEmpty()) {
             writeOrderLog(logFile);
         }
@@ -93,11 +110,17 @@ public class Main {
 
     private static CoffeeOrder buildOrder() {
         Scanner scanner = new Scanner(System.in);
+
+        //option to enter phone number for Loyalty Points
         System.out.println("Enter your phone number for MyBeanRewards or ENTER to skip:");
+
         String memberID = scanner.nextLine();
 
         if (memberID.length() != 10 ) {
+
+            //memberID must be 10 digits
             System.out.println("No account found");
+
         } else {
             System.out.println("Welcome MEMBER " + memberID + "!");
         }
@@ -320,25 +343,6 @@ public class Main {
 
     private static boolean isInInventory(String ingredient) {
         return inventory.containsKey(ingredient) && inventory.get(ingredient) > 0;
-    }
-
-    private static void updateOrderLog() {
-        writeOrderLog(logFile);
-        System.out.println("Order log updated.");
-    }
-
-    private static void MyBeanRewards( ) {
-        System.out.println("Enter your phone number:");
-        Scanner scanner = new Scanner(System.in);
-        String memberID = scanner.nextLine();
-
-
-        int MyBeanPoints = getPoints(memberID);
-        System.out.println("Your points: " + MyBeanPoints);
-    }
-
-    private static int getPoints(String MyBeanPoints) {
-        return MyBeanPoints.length();
     }
 
     private static void printStatistics() {

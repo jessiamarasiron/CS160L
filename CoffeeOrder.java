@@ -10,6 +10,7 @@ public class CoffeeOrder {
     private int MyBeanPoints;
     private String memberID;
 
+    //default constructor
     public CoffeeOrder() {
         coffees = new ArrayList<Coffee>();
         orderDate = LocalDateTime.now();
@@ -24,10 +25,12 @@ public class CoffeeOrder {
         MyBeanPoints = 0;
     }
 
+    //gets memberID from user
     public void getMemberID(String memberID) {
         this.memberID = memberID;
     }
 
+    //gets loyalty points from user
     public String getMemberID() {
         return memberID;
     }
@@ -35,12 +38,12 @@ public class CoffeeOrder {
     public int getMyBeanPoints() {
         return MyBeanPoints;
     }
-
-    public void addCoffee(Coffee c) {
+    public void addCoffee(Coffee c) { //adds coffee to order
         coffees.add(c);
 
     }
 
+    //gets coffee types
     public List<Coffee> getCoffees() {
         return coffees;
     }
@@ -49,12 +52,13 @@ public class CoffeeOrder {
        return orderDate;
    }
 
+    //calculate total loyalty points based on total cost of order
     public void calcMyBeanPoints() {
         double totalCost = getTotal();
         MyBeanPoints = (int) Math.floor(totalCost);
     }
 
-    public double getTotal() {
+    public double getTotal() { //gets total order cost
         double total = 0;
         for (Coffee coffee : coffees) {
             total += coffee.getCost();
@@ -63,6 +67,7 @@ public class CoffeeOrder {
     }
 
 
+    //order receipt with date, costs, description, memberID, and loyalty points earned
     public String printOrder() {
         StringBuilder order = new StringBuilder("ORDER RECEIPT\n");
         order.append(String.format("Timestamp: %s%n", orderDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mma"))));
