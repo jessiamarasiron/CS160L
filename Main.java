@@ -1,6 +1,17 @@
+/**
+ *  Java Coffee Co. ORDERING SYSTEM
+ *  CS160-1001
+ *  06/28/2023
+ * @author Jessicaamara Siron
+ */
+
 import java.util.*;
 import java.io.*;
 
+/**
+ * The `Main` class serves is the starting point for the Java Coffee Co. Ordering System.
+ * It allows users to interact with the system, place orders, manage inventory, view stats,and more.
+ */
 public class Main {
     private static Map<String, Integer> inventory = new TreeMap<String, Integer>();
     private static List<CoffeeOrder> orders = new ArrayList<CoffeeOrder>();
@@ -27,10 +38,11 @@ public class Main {
                 System.out.println("3 - Update Inventory");
                 System.out.println("4 - Update Order Log");
                 System.out.println("5 - View Statistics");
-                System.out.println("6 - Exit");
+                System.out.println("6 - About MyBeanRewards");
+                System.out.println("7 - Exit");
 
                 int select = 0;
-                while (select < 1 || select > 6) {
+                while (select < 1 || select > 7) {
 
                 //user must enter corresponding number or system returns error
                     if (!input.hasNextInt()) {
@@ -38,7 +50,7 @@ public class Main {
                         input.nextLine();
                     } else {
                         select = input.nextInt();
-                        if (select < 1 || select > 6) {
+                        if (select < 1 || select > 7) {
                             System.out.println("Error. Invalid option.");
                         }
                     }
@@ -87,8 +99,16 @@ public class Main {
                         printStatistics();
                         break;
 
-                     //exit system
+                    //information about MyBeanRewards
                     case 6:
+                        System.out.println("\nAbout MyBeanRewards:");
+                        System.out.println("MyBeanRewards is our loyalty program which allows for you to enjoy coffee and get rewarded.");
+                        System.out.println("For every $1 you spend, you will earn 1 point.");
+                        System.out.println("Ask an associate today about how you can sign up!");
+                        break;
+
+                     //exit system
+                    case 7:
                         System.out.println("Thank you for visiting Java Coffee Co.");
                         exit = true;
                         break;
